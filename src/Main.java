@@ -1,6 +1,5 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
 class Main{
@@ -11,7 +10,7 @@ class Main{
 
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        f.setSize(480, 650);
+        f.setSize(480, 700);
 
         PickleGame game = new PickleGame();
 
@@ -26,10 +25,13 @@ class Main{
             public void actionPerformed(ActionEvent e) {
 
                 game.repaint();
+                game.gameLogic();
 
             }
 
         });
+
+        timer.start();
 
     }
 }
