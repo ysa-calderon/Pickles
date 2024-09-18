@@ -10,17 +10,17 @@ public class PickleGame extends JPanel implements MouseMotionListener{
     private Ball gameBall;
 
     private Paddle userPaddle, pcPaddle;
-    
-    private int userMouseX;
-    private int userMouseY;
+
+    private int userMouseX, userMouseY, userScore, pcScore, bounceCount;
+    private Color ballColor = new Color(208, 223, 4);
 
     public PickleGame() {
-        Color ballColor = new Color(208, 223, 4);
 
         gameBall = new Ball(220, 320, 3, 3, 3, ballColor, 10);
 
         userPaddle = new Paddle(200, 610, 75, 3, Color.GREEN);
         pcPaddle = new Paddle(200, 10, 75, 3, Color.RED);
+        bounceCount = 0;
 
         userMouseX = 0;
         userMouseY = 0;
@@ -41,6 +41,10 @@ public class PickleGame extends JPanel implements MouseMotionListener{
         userPaddle.paint(g);
         pcPaddle.paint(g);
 
+        // update the score
+        g.setColor(Color.WHITE);
+        g.drawString("SCORE - User [" + userScore + "]  PC [" +  pcScore + "]", 170, 340);
+
     }
 
     public void gameLogic() {
@@ -55,10 +59,35 @@ public class PickleGame extends JPanel implements MouseMotionListener{
 
         if (userPaddle.checkCollision(gameBall)){
             gameBall.reverseY();
+            bounceCount++;
         }
         if (pcPaddle.checkCollision(gameBall)){
             gameBall.reverseY();
+            bounceCount++;
         }
+
+        if (bounceCount == 3) {
+            bounceCount = 0;
+            gameBall.increaseSpeed();
+        }
+
+        if (gameBall.getY() < 0){
+            userScore++;
+            reset();
+        }
+        else if (gameBall.getY() > WINDOW_HEIGHT){
+            pcScore++;
+            reset();
+        }
+
+    }
+
+    public void reset(){
+
+        gameBall = new Ball(220, 320, 3, 3, 3, ballColor, 10);
+        userPaddle = new Paddle(200, 610, 75, 3, Color.GREEN);
+        pcPaddle = new Paddle(200, 10, 75, 3, Color.RED);
+        bounceCount = 0;
 
     }
 

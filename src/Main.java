@@ -10,7 +10,7 @@ class Main{
 
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        f.setSize(480, 700);
+        f.setSize(497, 675);
 
         PickleGame game = new PickleGame();
 

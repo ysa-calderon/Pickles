@@ -5,6 +5,8 @@ public class Ball {
     private int x, y, cx, cy, speed, size;
     private Color color;
 
+    static final int MAX_SPEED = 6;
+
     public Ball(int x, int y, int cx, int cy, int speed, Color color, int size) {
 
         this.x = x;
@@ -64,5 +66,16 @@ public class Ball {
 
     public int getSize(){
         return size;
+    }
+
+    public void increaseSpeed(){
+
+        if(speed < MAX_SPEED){
+            speed++;
+
+            cx = (cx / Math.abs(cx) * speed);
+            cy = (cy / Math.abs(cy) * speed);
+        }
+
     }
 }
